@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxcdrfv27cttp"]
+
+[ext_resource type="Texture2D" uid="uid://cqi6ysxpiiq4e" path="res://sprites/enemy/bat/bat1back.png" id="1_406ne"]
+[ext_resource type="Texture2D" uid="uid://dy32nd65yrgnb" path="res://sprites/enemy/bat/bat1head.png" id="2_kb0tw"]
+
+[sub_resource type="Animation" id="Animation_pyxjc"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_awu18"]
+_data = {
+"idle": SubResource("Animation_pyxjc")
+}
+
+[node name="bat" type="Node2D"]
+
+[node name="Bat1Back" type="Sprite2D" parent="."]
+position = Vector2(3, 1)
+texture = ExtResource("1_406ne")
+
+[node name="Bat1Head" type="Sprite2D" parent="."]
+position = Vector2(3, 1)
+texture = ExtResource("2_kb0tw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_awu18")
+}
