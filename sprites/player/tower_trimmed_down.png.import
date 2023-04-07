@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjbrej3o5fd58"
-path.s3tc="res://.godot/imported/background1.png-6e9980c9f91d127afb775b5267c4dc41.s3tc.ctex"
+uid="uid://c3ai3vf2hw6ha"
+path.s3tc="res://.godot/imported/tower_trimmed_down.png-a2786a1d52b63a7e95e53005575cb071.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/background1.png"
-dest_files=["res://.godot/imported/background1.png-6e9980c9f91d127afb775b5267c4dc41.s3tc.ctex"]
+source_file="res://sprites/player/tower_trimmed_down.png"
+dest_files=["res://.godot/imported/tower_trimmed_down.png-a2786a1d52b63a7e95e53005575cb071.s3tc.ctex"]
 
 [params]
 

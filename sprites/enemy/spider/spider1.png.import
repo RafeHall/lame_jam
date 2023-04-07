@@ -2,21 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7r85d5dtyl14"
-path.s3tc="res://.godot/imported/tower_trimmed_up.png-64fa9e01cd79581bb7ad56dd0b267901.s3tc.ctex"
+uid="uid://xvwrm0722ili"
+path="res://.godot/imported/spider1.png-61857356d816a0029fedbb67f957f562.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/tower_trimmed_up.png"
-dest_files=["res://.godot/imported/tower_trimmed_up.png-64fa9e01cd79581bb7ad56dd0b267901.s3tc.ctex"]
+source_file="res://sprites/enemy/spider/spider1.png"
+dest_files=["res://.godot/imported/spider1.png-61857356d816a0029fedbb67f957f562.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
