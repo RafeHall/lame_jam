@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Tile" load_steps=2 format=3 uid="uid://dsa868kfymxsk"]
+
+[ext_resource type="Script" path="res://tiles/tile.gd" id="1_vcr5l"]
+
+[resource]
+script = ExtResource("1_vcr5l")
+valid_directions = 1
+north_port = 0
+east_port = 0
+south_port = 0
+west_port = 0

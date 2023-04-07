@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Tiles" load_steps=3 format=3 uid="uid://d11drhikbji64"]
+
+[ext_resource type="Script" path="res://tiles/tiles.gd" id="1_mksju"]
+[ext_resource type="Resource" uid="uid://dsa868kfymxsk" path="res://tiles/generator/generator.tres" id="2_w01rp"]
+
+[resource]
+script = ExtResource("1_mksju")
+tiles = Array[Resource("res://tiles/tile.gd")]([ExtResource("2_w01rp")])
