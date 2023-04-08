@@ -5,6 +5,7 @@ const PORT_LAYER: int = 1;
 const COMPONENT_LAYER: int = 2;
 
 @export var tile_size: Vector2i = Vector2i(48, 48);
+@export var board_size: Vector2i = Vector2i(11, 11);
 @export var components: Components = null;
 
 @export var input_port_node: PackedScene = null;
@@ -18,9 +19,14 @@ var _tiles: Array[Dictionary] = [{}, {}, {}];
 @onready var _components: Node2D = $Components;
 
 var _marker: Node = null;
-var _valid_image = preload("res://sprites/player/ui/line2.png");
-var _invalid_image = preload("res://sprites/player/ui/line1.png");
+var _marker_bend: bool = true;
 var _marker_direction: Component.Side = Component.Side.UP;
+
+@export var valid_image_straight: Texture2D = preload("res://sprites/player/ui/line2.png");
+@export var invalid_image_straight: Texture2D = preload("res://sprites/player/ui/line1.png");
+
+@export var valid_image_bend: Texture2D = preload("res://sprites/player/ui/line2.png");
+@export var invalid_image_bend: Texture2D = preload("res://sprites/player/ui/line1.png");
 
 
 class ComponentTile:
@@ -57,7 +63,7 @@ func _ready():
 	place_wire(Vector2i(0, 1), true, Component.Side.RIGHT);
 	
 	_marker = Sprite2D.new();
-	_marker.texture = _valid_image;
+	_marker.scale = Vector2(1.333, 1.333); # NOTE: This is to fit the testing wire textures
 	add_child(_marker);
 
 
@@ -74,10 +80,16 @@ func _input(event: InputEvent) -> void:
 				var new_index = posmod(Component.side_to_index(_marker_direction) - 1, 4);
 				_marker_direction = Component.index_to_side(new_index);
 				_update_marker();
+			elif event.keycode == KEY_F:
+				_marker_bend = !_marker_bend;
+				_update_marker();
 
 
 
 func valid_component_placement(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP) -> bool:
+	if not valid_coord(coord):
+		return false;
+	
 	var free_tiles = component.get_port_offsets(direction);
 	free_tiles.append(coord);
 	
@@ -125,35 +137,34 @@ func place_component(coord: Vector2i, component: Component, direction: Component
 
 
 func valid_wire_placement(coord: Vector2i, bend: bool, direction: Component.Side) -> bool:
+	if not valid_coord(coord):
+		return false;
+	
 	if has_component_tile(coord):
 		return false;
 	
 	if has_wire(coord):
 		return false;
 	
-	if not bend:
-		var valid = false;
-		for side in [Component.Side.UP, Component.Side.DOWN]:
-			var rotated_side = Component.rotate_side(side, Component.side_to_index(direction));
-			var offset = Component.side_offset(rotated_side);
-			if has_wire(coord + offset):
-				valid = true;
-			
-			if has_port(coord) and get_port(coord).direction == rotated_side:
-				valid = true;
-		
-		if not valid:
-			return false;
+	var sides = [];
+	if bend:
+		sides = [Component.Side.RIGHT, Component.Side.DOWN];
 	else:
-		pass;
-#	if has_port(coord):
-#		return true;
+		sides = [Component.Side.UP, Component.Side.DOWN];
 	
-#	for side in Component.Side.values():
-#		var offset = Component.side_offset(side);
-#
-#		if has_wire(coord + offset):
-#			return true;
+	var valid = false;
+	
+	for side in sides:
+		var rotated_side = Component.rotate_side(side, Component.side_to_index(direction));
+		var offset = Component.side_offset(rotated_side);
+		if has_wire(coord + offset):
+			valid = true;
+		
+		if has_port(coord) and get_port(coord).direction == rotated_side:
+			valid = true;
+	
+	if not valid:
+		return false;
 	
 	return true;
 
@@ -161,6 +172,18 @@ func valid_wire_placement(coord: Vector2i, bend: bool, direction: Component.Side
 func place_wire(coord: Vector2i, bend: bool, direction: Component.Side) -> void:
 	if valid_wire_placement(coord, bend, direction):
 		print("Valid");
+
+
+func valid_coord(coord: Vector2i) -> bool:
+	if coord.x > (board_size.x - 1) / 2:
+		return false;
+	if coord.y > (board_size.y - 1) / 2:
+		return false;
+	if coord.y < -(board_size.y - 1) / 2:
+		return false;
+	if coord.x < -(board_size.x - 1) / 2:
+		return false;
+	return true;
 
 
 func get_component_tile(coord: Vector2i) -> ComponentTile:
@@ -198,11 +221,24 @@ func _update_marker() -> void:
 	var pos = _coord_to_position(tile_coord);
 	
 	_marker.position = pos;
-	_marker.rotation = Vector2(Component.side_offset(_marker_direction)).angle();
-	if valid_wire_placement(tile_coord, false, _marker_direction):
-		_marker.texture = _valid_image;
+	_marker.rotation = Vector2(Component.side_offset(_marker_direction)).angle() + PI / 2.0;
+	
+	if not valid_coord(tile_coord):
+		_marker.modulate = Color.TRANSPARENT;
 	else:
-		_marker.texture = _invalid_image;
+		_marker.modulate = Color.WHITE;
+	
+	var valid = valid_wire_placement(tile_coord, _marker_bend, _marker_direction);
+	if _marker_bend:
+		if valid:
+			_marker.texture = valid_image_bend;
+		else:
+			_marker.texture = invalid_image_bend;
+	else:
+		if valid:
+			_marker.texture = valid_image_straight;
+		else:
+			_marker.texture = invalid_image_straight;
 
 
 func _get_wire_tiles() -> Dictionary:

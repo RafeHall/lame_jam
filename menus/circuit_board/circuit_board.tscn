@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccyu05nqo6vqk"]
+[gd_scene load_steps=12 format=3 uid="uid://ccyu05nqo6vqk"]
 
 [ext_resource type="Texture2D" uid="uid://boreltwg2tkvh" path="res://sprites/player/ui/grid2.png" id="1_wbx28"]
 [ext_resource type="Script" path="res://menus/circuit_board/circuit_board.gd" id="2_4ey3b"]
@@ -6,6 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://gjkl0800j2pj" path="res://components/ports/input_port.tscn" id="3_8vcd8"]
 [ext_resource type="Resource" uid="uid://b2oiaj6phhovw" path="res://components/components.tres" id="3_dponn"]
 [ext_resource type="PackedScene" uid="uid://d3jd1qqbty6jb" path="res://components/ports/output_port.tscn" id="4_6l88j"]
+[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires.png" id="7_3yb4u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvmjh"]
+atlas = ExtResource("7_3yb4u")
+region = Rect2(96, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inak8"]
+atlas = ExtResource("7_3yb4u")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jjca"]
+atlas = ExtResource("7_3yb4u")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83u4g"]
+atlas = ExtResource("7_3yb4u")
+region = Rect2(48, 48, 48, 48)
 
 [node name="CircuitBoard" type="Node"]
 
@@ -321,6 +338,10 @@ tile_size = Vector2i(64, 64)
 components = ExtResource("3_dponn")
 input_port_node = ExtResource("3_8vcd8")
 output_port_node = ExtResource("4_6l88j")
+valid_image_straight = SubResource("AtlasTexture_vvmjh")
+invalid_image_straight = SubResource("AtlasTexture_inak8")
+valid_image_bend = SubResource("AtlasTexture_5jjca")
+invalid_image_bend = SubResource("AtlasTexture_83u4g")
 
 [node name="Ports" type="Node2D" parent="Board"]
 
