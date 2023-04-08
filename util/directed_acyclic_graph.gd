@@ -26,26 +26,32 @@ func get_node(id: int) -> Variant:
 	if _nodes.has(id):
 		return _nodes[id].value;
 	else:
+		print_debug("Node does not exist");
 		return null;
 
 
 # Returns whether the edge was valid and was added
 func add_edge(from: int, to: int) -> bool:
 	if !_nodes.has(from) or !_nodes.has(to):
+		print_debug("Node does not exist");
 		return false;
 	
-	var valid: bool = true;
-	
+	# NOTE: This needs to be a reference to modify it inside the walk down callback so a normal bool
+	#       wouldn't work instead wrapping it in a dictionary is easy enough.
+	var _valid: Dictionary = {"valid": true};
 	walk_down(to, func(id, value, depth):
 		if id == from:
-			valid = false;
+			_valid.valid = false;
 	);
-	
-	if valid:
+
+	if _valid.valid:
 		_nodes[from].connected_to.append(to);
 		_nodes[to].connected_from.append(from);
-	
-	return valid;
+		
+		return true;
+	else:
+		printerr("Attempted to add invalid edge");
+		return false;
 
 
 # NOTE: Expensive due to duplicating array
@@ -54,6 +60,7 @@ func get_connected_from(id: int) -> Array[int]:
 		var node_value: NodeValue = _nodes[id]; 
 		return (node_value.connected_from as Array).duplicate();
 	else:
+		print_debug("Node does not exist");
 		return [];
 
 
@@ -63,11 +70,13 @@ func get_connected_to(id: int) -> Array[int]:
 		var node_value: NodeValue = _nodes[id]; 
 		return (node_value.connected_to as Array).duplicate();
 	else:
+		print_debug("Node does not exist");
 		return [];
 
 
 func walk_down(from: int, callback: Callable, depth: int = 0) -> void:
 	if !_nodes.has(from):
+		print_debug("Node does not exist");
 		return;
 	
 	var node_value: NodeValue = _nodes[from];
@@ -80,6 +89,7 @@ func walk_down(from: int, callback: Callable, depth: int = 0) -> void:
 
 func walk_up(from: int, callback: Callable, depth: int = 0) -> void:
 	if !_nodes.has(from):
+		print_debug("Node does not exist");
 		return;
 	
 	var node_value: NodeValue = _nodes[from];

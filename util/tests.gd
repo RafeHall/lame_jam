@@ -14,31 +14,15 @@ func _run():
 	var g = graph.add_node("G");
 	var h = graph.add_node("H");
 	
-	if not graph.add_edge(a, b):
-		printerr("A->B");
-	
-	if not graph.add_edge(b, c):
-		printerr("B->C");
-	
-	if not graph.add_edge(c, d):
-		printerr("C->D");
-	
-	
-	if not graph.add_edge(b, e):
-		printerr("B->E");
-	
-	if not graph.add_edge(e, f):
-		printerr("E->F");
-	
-	if not graph.add_edge(f, g):
-		printerr("F->G");
-	
-	
-	if not graph.add_edge(g, h):
-		printerr("G->H");
-	
-	if not graph.add_edge(d, h):
-		printerr("D->H");
+	graph.add_edge(a, b);
+	graph.add_edge(b, c);
+	graph.add_edge(c, d);
+	graph.add_edge(b, e);
+	graph.add_edge(e, f);
+	graph.add_edge(f, g);
+	graph.add_edge(g, h);
+	graph.add_edge(d, h);
+	graph.add_edge(h, a);
 	
 	graph.walk_down(a, func(id, value, depth):
 		print(value);
