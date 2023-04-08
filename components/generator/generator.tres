@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Component" load_steps=4 format=3 uid="uid://c8l2i5w42mw3g"]
+
+[ext_resource type="Script" path="res://components/component.gd" id="1_vcr5l"]
+[ext_resource type="PackedScene" uid="uid://ybpvp17iv3pp" path="res://components/generator/generator.tscn" id="2_12meg"]
+[ext_resource type="Script" path="res://components/generator/generator.gd" id="2_45x0y"]
+
+[resource]
+script = ExtResource("1_vcr5l")
+tile_script = ExtResource("2_45x0y")
+tile_scene = ExtResource("2_12meg")
+valid_rotations = 1
+north_port = 2
+east_port = 2
+south_port = 2
+west_port = 2

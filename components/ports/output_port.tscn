@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3jd1qqbty6jb"]
+
+[ext_resource type="Texture2D" uid="uid://0bq6s17c0dej" path="res://components/ports.png" id="1_3n3ho"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pt86j"]
+atlas = ExtResource("1_3n3ho")
+region = Rect2(0, 48, 48, 48)
+
+[node name="OuputPort" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_pt86j")
