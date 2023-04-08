@@ -1,41 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccyu05nqo6vqk"]
+[gd_scene load_steps=6 format=3 uid="uid://ccyu05nqo6vqk"]
 
-[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://sprites/wires.png" id="1_p13vx"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bssyh"]
-resource_name = "wire"
-texture = ExtResource("1_p13vx")
-texture_region_size = Vector2i(48, 48)
-0:0/next_alternative_id = 10
-0:0/0 = 0
-0:0/1 = 1
-0:0/1/transpose = true
-0:1/next_alternative_id = 5
-0:1/0 = 0
-0:1/1 = 1
-0:1/1/flip_h = true
-0:1/2 = 2
-0:1/2/flip_v = true
-0:1/3 = 3
-0:1/3/flip_h = true
-0:1/3/flip_v = true
-
-[sub_resource type="TileSet" id="TileSet_bm4dl"]
-tile_size = Vector2i(48, 48)
-sources/1 = SubResource("TileSetAtlasSource_bssyh")
+[ext_resource type="Script" path="res://menus/circuit_board/circuit_board.gd" id="2_4ey3b"]
+[ext_resource type="PackedScene" uid="uid://gjkl0800j2pj" path="res://components/ports/input_port.tscn" id="3_8vcd8"]
+[ext_resource type="Resource" uid="uid://b2oiaj6phhovw" path="res://components/components.tres" id="3_dponn"]
+[ext_resource type="PackedScene" uid="uid://d3jd1qqbty6jb" path="res://components/ports/output_port.tscn" id="4_6l88j"]
+[ext_resource type="Texture2D" uid="uid://dpsfkjrelxqdg" path="res://components/testing_background.png" id="5_86pvk"]
 
 [node name="CircuitBoard" type="Node"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="TestingBackground" type="Sprite2D" parent="."]
+texture = ExtResource("5_86pvk")
 
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_bm4dl")
-format = 2
-layer_0/name = "wires"
-layer_1/name = "components"
-layer_1/enabled = true
-layer_1/modulate = Color(1, 1, 1, 1)
-layer_1/y_sort_enabled = false
-layer_1/y_sort_origin = 0
-layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array()
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("2_4ey3b")
+components = ExtResource("3_dponn")
+input_port_node = ExtResource("3_8vcd8")
+output_port_node = ExtResource("4_6l88j")
+
+[node name="Ports" type="Node2D" parent="Board"]
+
+[node name="Wires" type="Node2D" parent="Board"]
+
+[node name="Components" type="Node2D" parent="Board"]
+
+[node name="Camera2D" type="Camera2D" parent="."]

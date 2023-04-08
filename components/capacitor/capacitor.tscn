@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdl7is2cmly5j"]
+
+[ext_resource type="Texture2D" uid="uid://dsube3jv4dv83" path="res://components/components.png" id="1_3sv8r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_itdfx"]
+atlas = ExtResource("1_3sv8r")
+region = Rect2(0, 48, 48, 48)
+
+[node name="Capacitor" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_itdfx")

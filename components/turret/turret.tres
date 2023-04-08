@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Component" load_steps=4 format=3 uid="uid://btjr8xwwbmiib"]
+
+[ext_resource type="Script" path="res://components/component.gd" id="1_4m05g"]
+[ext_resource type="PackedScene" uid="uid://kxq3lh54p34f" path="res://components/turret/turret.tscn" id="2_hed60"]
+[ext_resource type="Script" path="res://components/turret/turret.gd" id="2_kn5uw"]
+
+[resource]
+script = ExtResource("1_4m05g")
+tile_script = ExtResource("2_kn5uw")
+tile_scene = ExtResource("2_hed60")
+valid_rotations = 15
+north_port = 0
+east_port = 0
+south_port = 1
+west_port = 0
