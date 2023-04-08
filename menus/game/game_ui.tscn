@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1d4e1f4k8dut"]
+
+[ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
+[ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
+[ext_resource type="Texture2D" uid="uid://c52ap14h8eojd" path="res://sprites/player/ui/line2.png" id="2_ds64e"]
+[ext_resource type="Texture2D" uid="uid://d3kxxyocr0grx" path="res://sprites/player/ui/line1.png" id="3_gvafb"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Bottom" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -400.0
+offset_right = 640.0
+grow_vertical = 0
+
+[node name="UiSidethingy" type="Sprite2D" parent="Bottom"]
+modulate = Color(0.32549, 0.32549, 0.32549, 1)
+position = Vector2(-13, 299)
+rotation = 0.120428
+texture = ExtResource("1_1cd2g")
+
+[node name="UiSidethingy2" type="Sprite2D" parent="Bottom"]
+modulate = Color(0.32549, 0.32549, 0.32549, 1)
+position = Vector2(1299, 299)
+rotation = -0.120428
+scale = Vector2(-1, 1)
+texture = ExtResource("1_1cd2g")
+
+[node name="Sprite2D" type="Sprite2D" parent="Bottom"]
+texture = ExtResource("1_73ijd")
+centered = false
+
+[node name="HealthProgressBar" type="TextureProgressBar" parent="Bottom"]
+custom_minimum_size = Vector2(180, 64)
+layout_mode = 0
+offset_left = 67.0
+offset_top = 8.0
+offset_right = 247.0
+offset_bottom = 72.0
+scale = Vector2(1, 2)
+mouse_filter = 2
+value = 50.0
+nine_patch_stretch = true
+texture_progress = ExtResource("2_ds64e")
+
+[node name="WaveProgressBar" type="TextureProgressBar" parent="Bottom"]
+custom_minimum_size = Vector2(180, 64)
+layout_mode = 0
+offset_left = 67.0
+offset_top = 96.0
+offset_right = 247.0
+offset_bottom = 160.0
+scale = Vector2(1, 2)
+mouse_filter = 2
+value = 50.0
+nine_patch_stretch = true
+texture_progress = ExtResource("3_gvafb")
+
+[node name="MoneyCounterText" type="Label" parent="Bottom"]
+layout_mode = 0
+offset_left = 1069.0
+offset_top = 58.0
+offset_right = 1223.0
+offset_bottom = 105.0
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RadarContainer" type="Control" parent="Bottom"]
+anchors_preset = 0
+offset_left = 55.0
+offset_top = 238.0
+offset_right = 247.0
+offset_bottom = 380.0
+
+[node name="EditorContainer" type="Control" parent="Bottom"]
+anchors_preset = 0
+offset_left = 327.0
+offset_top = 11.0
+offset_right = 715.0
+offset_bottom = 387.0
+
+[node name="ShopContainer" type="Control" parent="Bottom"]
+anchors_preset = 0
+offset_left = 764.0
+offset_top = 25.0
+offset_right = 986.0
+offset_bottom = 352.0
