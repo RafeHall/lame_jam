@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceir0rar27ydk"]
+
+[ext_resource type="Material" uid="uid://ddsqf0liuwd3c" path="res://util/basic_2d_additive.tres" id="1_mulhj"]
+[ext_resource type="Texture2D" uid="uid://k3jade7g8fqq" path="res://fx/bullet_player/blue1.png" id="2_nufxd"]
+
+[sub_resource type="Gradient" id="Gradient_h4xol"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ptej5"]
+gradient = SubResource("Gradient_h4xol")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w8bv7"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_max = 360.0
+scale_min = 0.15
+scale_max = 0.2
+color_ramp = SubResource("GradientTexture1D_ptej5")
+turbulence_noise_speed_random = 0.53
+
+[node name="bullet_player" type="Node2D"]
+
+[node name="Blue1" type="Sprite2D" parent="."]
+material = ExtResource("1_mulhj")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_nufxd")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = ExtResource("1_mulhj")
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_w8bv7")
+texture = ExtResource("2_nufxd")
+lifetime = 0.25

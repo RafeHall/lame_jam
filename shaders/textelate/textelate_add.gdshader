@@ -1,4 +1,5 @@
 shader_type canvas_item;
+render_mode blend_add;
 
 uniform float pixel_size = 64.0; // dots size | using int is ok
 uniform vec4 tint : source_color;
