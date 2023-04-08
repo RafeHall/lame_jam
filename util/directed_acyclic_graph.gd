@@ -3,6 +3,7 @@ extends RefCounted
 
 
 var _nodes: Dictionary = {};
+var _connections: Dictionary = {};
 
 class NodeValue:
 	var value: Variant = null;
@@ -30,8 +31,8 @@ func get_node(id: int) -> Variant:
 		return null;
 
 
-# Returns whether the edge was valid and was added
-func add_edge(from: int, to: int) -> bool:
+# Returns the edge id or -1 if the edge was invalid
+func add_edge(from: int, to: int, value: Variant = null) -> int:
 	if !_nodes.has(from) or !_nodes.has(to):
 		print_debug("Node does not exist");
 		return false;
@@ -48,10 +49,17 @@ func add_edge(from: int, to: int) -> bool:
 		_nodes[from].connected_to.append(to);
 		_nodes[to].connected_from.append(from);
 		
-		return true;
+		var connection_id = hash(hash(to) + hash(from));
+		_connections[connection_id] = value;
+		
+		return connection_id;
 	else:
 		printerr("Attempted to add invalid edge");
-		return false;
+		return -1;
+
+
+func remove_node(id: int) -> void:
+	pass;
 
 
 # NOTE: Expensive due to duplicating array

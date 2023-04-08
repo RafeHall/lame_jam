@@ -1,9 +1,10 @@
 class_name CircuitBoard
 extends Node2D
 
-const WIRE_LAYER: int = 0;
-const PORT_LAYER: int = 1;
-const COMPONENT_LAYER: int = 2;
+const PORT_LAYER: int = 0;
+const COMPONENT_LAYER: int = 1;
+
+const ANGLE_OFFSET: float = PI / 2.0;
 
 @export var tile_size: Vector2i = Vector2i(48, 48);
 @export var board_size: Vector2i = Vector2i(11, 11);
@@ -13,9 +14,8 @@ const COMPONENT_LAYER: int = 2;
 @export var output_port_node: PackedScene = null;
 
 var _graph: DirectedAcyclicGraph = DirectedAcyclicGraph.new();
-var _tiles: Array[Dictionary] = [{}, {}, {}];
+var _tiles: Array[Dictionary] = [{}, {}];
 
-#@onready var _wires: Node2D = $Wires;
 @onready var _ports: Node2D = $Ports;
 @onready var _components: Node2D = $Components;
 @onready var _marker_nodes: Node2D = $MarkerNodes;
@@ -34,40 +34,31 @@ var _marker_direction: Component.Side = Component.Side.UP;
 @export var invalid_image_bend: Texture2D = preload("res://sprites/player/ui/line1.png");
 
 
-class ComponentTile:
+class ComponentTile extends RefCounted:
 	var component: Component;
 	var direction: Component.Side = Component.Side.UP;
 	var node: Node = null;
 	var graph_id: int = -1;
+	var ports: Array[PortTile] = [];
 	
-	func _init(component: Component, direction: Component.Side, node: Node) -> void:
+	func _init(component: Component, direction: Component.Side, node: Node, ports: Array[PortTile]) -> void:
 		self.component = component;
 		self.direction = direction;
 		self.node = node;
+		self.ports = ports;
 
 
-class PortTile:
+class PortTile extends RefCounted:
 	var type: Component.Port;
 	var direction: Component.Side = Component.Side.UP;
 	var node: Node = null;
+	var coord: Vector2i = Vector2i.ZERO;
 	
-	func _init(type: Component.Port, direction: Component.Side, node: Node) -> void:
+	func _init(type: Component.Port, direction: Component.Side, node: Node, coord: Vector2i) -> void:
 		self.type = type;
 		self.direction = direction;
 		self.node = node;
-
-
-#class WireTile:
-#	var power: int = Component.Power.ZERO;
-#	var bend: bool = false;
-#	var direction: Component.Side = Component.Side.UP;
-#	var node: Node = null;
-#
-#	func _init(power: int, bend: bool, direction: Component.Side, node: Node) -> void:
-#		self.power = power;
-#		self.bend = bend;
-#		self.direction = direction;
-#		self.node = node;
+		self.coord = coord;
 
 
 func _ready():
@@ -95,9 +86,7 @@ func _ready():
 		var out_port = output_port_node.instantiate();
 		
 		var offset = Vector2(Component.side_to_offset(side));
-		var rot = offset.angle() + PI / 2.0;
-		
-		print(rad_to_deg(rot));
+		var rot = offset.angle() + ANGLE_OFFSET;
 		
 		in_port.visible = false;
 		out_port.visible = false;
@@ -128,10 +117,12 @@ func _input(event: InputEvent) -> void:
 				_update_marker();
 	elif event is InputEventMouseButton:
 		if event.pressed:
+			var mouse_position = get_local_mouse_position();
+			var coord = _position_to_coord(mouse_position);
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				var mouse_position = get_local_mouse_position();
-				var coord = _position_to_coord(mouse_position);
 				place_component(coord, _marker_component, _marker_direction);
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				remove_component(coord);
 
 
 
@@ -152,20 +143,23 @@ func valid_component_placement(coord: Vector2i, component: Component, direction:
 			continue;
 		
 		var neighbor: ComponentTile = get_component_tile(coord + global_offset);
+		var neighbor_rot = Component.side_to_index(neighbor.direction);
 		
-		var global_port = component.ports[i];
+		var rot = Component.side_to_index(direction);
 		
-		
-#		var neighbor = get_component_tile(coord + offset);
-#		var neighbor_port = neighbor.component.ports[opposite_side_index];
+		var rotated_port = component.ports[(i + rot) % 4];
+		var neighbor_rotated_port = neighbor.component.ports[neighbor_rot];
 		
 		# NOTE: Skip port checks if no port exists or is a universal port
-#		if port_type != Component.Port.INPUT or port_type != Component.Port.OUTPUT:
-#			continue;
+		if rotated_port != Component.Port.INPUT or rotated_port != Component.Port.OUTPUT:
+			continue;
+		
+		if neighbor_rotated_port != Component.Port.INPUT or neighbor_rotated_port != Component.Port.OUTPUT:
+			continue;
 		
 		# NOTE: Checks if an input is connected to an output
-#		if not port_type != neighbor_port:
-#			return false;
+		if not rotated_port != neighbor_rotated_port:
+			return false;
 	
 	# TODO: Verify with the graph that this connection is not cyclic
 	
@@ -177,13 +171,10 @@ func place_component(coord: Vector2i, component: Component, direction: Component
 	if valid_component_placement(coord, component, direction):
 		var node = component.tile_scene.instantiate();
 		node.position = _coord_to_position(coord);
-		node.rotation = Vector2(Component.side_to_offset(direction)).angle() + PI / 2.0;
+		node.rotation = Vector2(Component.side_to_offset(direction)).angle() + ANGLE_OFFSET;
 		_components.add_child(node);
 		
-		var component_tile = ComponentTile.new(component, direction, node);
-		component_tile.graph_id = _graph.add_node(component_tile);
-		_get_component_tiles()[coord] = component_tile;
-		
+		var component_ports: Array[PortTile] = [];
 		var port_offsets = component.get_port_offsets(direction);
 		var ports = component.ports;
 		for i in range(4):
@@ -203,49 +194,30 @@ func place_component(coord: Vector2i, component: Component, direction: Component
 			
 			if port_node != null:
 				port_node.position = _coord_to_position(coord + offset);
-				port_node.rotation = Vector2(offset).angle() + PI / 2.0;
+				port_node.rotation = Vector2(offset).angle() + ANGLE_OFFSET;
 				_ports.add_child(port_node);
 				
-				var port_tile = PortTile.new(port, port_direction, port_node);
+				var port_tile = PortTile.new(port, port_direction, port_node, coord + offset);
+				component_ports.append(port_tile);
 				_get_port_tiles()[coord + offset] = port_tile;
+		
+		var component_tile = ComponentTile.new(component, direction, node, component_ports);
+		component_tile.graph_id = _graph.add_node(component_tile);
+		_get_component_tiles()[coord] = component_tile;
 
 
-#func valid_wire_placement(coord: Vector2i, bend: bool, direction: Component.Side) -> bool:
-#	if not valid_coord(coord):
-#		return false;
-#
-#	if has_component_tile(coord):
-#		return false;
-#
-#	if has_wire(coord):
-#		return false;
-#
-#	var sides = [];
-#	if bend:
-#		sides = [Component.Side.RIGHT, Component.Side.DOWN];
-#	else:
-#		sides = [Component.Side.UP, Component.Side.DOWN];
-#
-#	var valid = false;
-#
-#	for side in sides:
-#		var rotated_side = Component.rotate_side(side, Component.side_to_index(direction));
-#		var offset = Component.side_offset(rotated_side);
-#		if has_wire(coord + offset):
-#			valid = true;
-#
-#		if has_port(coord) and get_port(coord).direction == rotated_side:
-#			valid = true;
-#
-#	if not valid:
-#		return false;
-#
-#	return true;
-#
-#
-#func place_wire(coord: Vector2i, bend: bool, direction: Component.Side) -> void:
-#	if valid_wire_placement(coord, bend, direction):
-#		print("Valid");
+func remove_component(coord: Vector2i) -> void:
+	if not has_component_tile(coord):
+		return;
+	
+	var tile_component = get_component_tile(coord);
+	tile_component.node.queue_free();
+	for port in tile_component.ports:
+		port.node.queue_free();
+		_get_port_tiles().erase(port.coord);
+	
+	_graph.remove_node(tile_component.graph_id);
+	_get_component_tiles().erase(coord);
 
 
 func valid_coord(coord: Vector2i) -> bool:
@@ -297,7 +269,7 @@ func _update_marker() -> void:
 		else:
 			_marker_out_ports[i].visible = false;
 	
-	var rot = Vector2(Component.side_to_offset(_marker_direction)).angle() + PI / 2.0;
+	var rot = Vector2(Component.side_to_offset(_marker_direction)).angle() + ANGLE_OFFSET;
 	if _marker_component.visuals_rotate:
 		_marker_nodes.rotation = rot;
 		_marker_ports.rotation = 0;
