@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="LameJam"
+run/main_scene="res://menus/circuit_board/circuit_board_menu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/enable=false
 
 [display]
 
