@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="LameJam"
-run/main_scene="res://menus/circuit_board/circuit_board_menu.tscn"
+run/main_scene="res://menus/game_menu/game_menu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,8 @@ gdscript/warnings/enable=false
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
 
 [rendering]
 
