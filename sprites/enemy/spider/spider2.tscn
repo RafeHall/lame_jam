@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://hkl54bscy2pk"]
+
+[ext_resource type="Texture2D" uid="uid://b12huci85pjkx" path="res://sprites/enemy/spider/spider2.png" id="1_k61kn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sr0bq"]
+atlas = ExtResource("1_k61kn")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uvlo"]
+atlas = ExtResource("1_k61kn")
+region = Rect2(80, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jw0td"]
+atlas = ExtResource("1_k61kn")
+region = Rect2(160, 0, 80, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_heo0t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sr0bq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4uvlo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jw0td")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="spider2" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_heo0t")
