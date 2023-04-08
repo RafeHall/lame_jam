@@ -25,6 +25,7 @@ enum Power {
 
 @export var tile_script: Script = null;
 @export var tile_scene: PackedScene = null;
+@export var icon: Texture2D = null;
 @export_flags("Up", "Down", "Left", "Right") var valid_rotations: int = Side.UP;
 
 @export_group("Ports")

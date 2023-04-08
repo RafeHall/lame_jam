@@ -10,4 +10,5 @@ region = Rect2(0, 48, 48, 48)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(1.333, 1.333)
 texture = SubResource("AtlasTexture_pt86j")
