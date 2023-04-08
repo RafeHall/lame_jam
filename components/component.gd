@@ -3,15 +3,16 @@ extends Resource
 
 enum Side {
 	UP = 1,
-	DOWN = 2,
-	LEFT = 4,
-	RIGHT = 8,
+	RIGHT = 2,
+	DOWN = 4,
+	LEFT = 8,
 }
 
 enum Port {
 	NONE,
 	INPUT,
 	OUTPUT,
+	IN_OUT,
 }
 
 enum Power {
@@ -25,8 +26,13 @@ enum Power {
 
 @export var tile_script: Script = null;
 @export var tile_scene: PackedScene = null;
+@export var visuals_rotate: bool = false;
+@export_flags("Up:1", "Down:4", "Left:8", "Right:2") var valid_rotations: int = Side.UP;
+
+@export_group("Shop")
 @export var icon: Texture2D = null;
-@export_flags("Up", "Down", "Left", "Right") var valid_rotations: int = Side.UP;
+@export var buyable: bool = true;
+@export var cost: int = 250;
 
 @export_group("Ports")
 @export var north_port: Port = Port.NONE;
@@ -48,7 +54,7 @@ func get_port_offsets(rotation: Component.Side) -> Array[Vector2i]:
 		var side = index_to_side(i);
 		var rotation_amount = side_to_index(rotation);
 		var new_side = rotate_side(side, rotation_amount);
-		var offset = side_offset(new_side);
+		var offset = side_to_offset(new_side);
 		offsets[i] = offset;
 	
 	return offsets;
@@ -105,7 +111,7 @@ static func rotations_have(rotations: int, side: Component.Side) -> bool:
 	return rotations & int(side) == int(side);
 
 
-static func side_offset(side: Component.Side) -> Vector2i:
+static func side_to_offset(side: Component.Side) -> Vector2i:
 	match side:
 		Side.UP:
 			return Vector2i.UP;
@@ -128,4 +134,17 @@ static func offset_to_side(offset: Vector2i) -> Component.Side:
 			return Side.DOWN;
 		Vector2i.LEFT:
 			return Side.LEFT;
+	return Side.UP;
+
+
+static func opposite_side(side: Component.Side) -> Component.Side:
+	match side:
+		Side.UP:
+			return Side.DOWN;
+		Side.RIGHT:
+			return Side.LEFT;
+		Side.DOWN:
+			return Side.UP;
+		Side.LEFT:
+			return Side.RIGHT;
 	return Side.UP;

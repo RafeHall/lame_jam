@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://jjkx153xt7v0"]
 
-[ext_resource type="PackedScene" uid="uid://ccyu05nqo6vqk" path="res://menus/circuit_board/circuit_board.tscn" id="1_va7nl"]
+[ext_resource type="PackedScene" uid="uid://r6wgkbtrr8lj" path="res://menus/circuit_board/circuit_board.tscn" id="1_va7nl"]
 
 [node name="CircuitBoardMenu" type="Control"]
 layout_mode = 3
