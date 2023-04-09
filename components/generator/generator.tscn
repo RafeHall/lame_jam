@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://ybpvp17iv3pp"]
+[gd_scene load_steps=2 format=3 uid="uid://ybpvp17iv3pp"]
 
-[ext_resource type="Texture2D" uid="uid://dsube3jv4dv83" path="res://components/components.png" id="1_2yvsk"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e0rb0"]
-atlas = ExtResource("1_2yvsk")
-region = Rect2(0, 0, 48, 48)
+[ext_resource type="Texture2D" uid="uid://b4m60q75xdwt1" path="res://sprites/player/ui3/core.png" id="1_ih4gt"]
 
 [node name="Generator" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_e0rb0")
+texture = ExtResource("1_ih4gt")

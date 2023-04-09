@@ -9,4 +9,4 @@ region = Rect2(0, 0, 48, 48)
 [node name="StraightWire" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_av3pk")
+texture = ExtResource("2_e116v")
