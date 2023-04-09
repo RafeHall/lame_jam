@@ -18,3 +18,5 @@ func _current_component_changed(new_component: Component):
 		text = default_text;
 	else:
 		text = new_component.description;
+	$AnimationPlayer.stop(true);
+	$AnimationPlayer.play("noisefx")
