@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=23 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
@@ -12,7 +12,9 @@
 [ext_resource type="Script" path="res://menus/game/health_bar.gd" id="6_kw8as"]
 [ext_resource type="Script" path="res://menus/game/money_counter.gd" id="7_0n8xk"]
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
+[ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="10_voh5i"]
 [ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
+[ext_resource type="Material" uid="uid://ctc64k8ix2chv" path="res://util/bar_mat.tres" id="13_dpcyh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80ws5"]
 shader = ExtResource("1_bukbr")
@@ -33,6 +35,21 @@ shader_parameter/filter_width = 10
 shader = ExtResource("5_sud02")
 shader_parameter/amount = 100.0
 
+[sub_resource type="Animation" id="Animation_k5jvv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../HelpLabelNoise:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_j4b71"]
 resource_name = "noisefx"
 length = 0.25
@@ -49,21 +66,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_k5jvv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../HelpLabelNoise:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_41wy6"]
 _data = {
 "RESET": SubResource("Animation_k5jvv"),
@@ -73,6 +75,19 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qxo3y"]
 shader = ExtResource("5_sud02")
 shader_parameter/amount = 40.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aiy3u"]
+shader = ExtResource("10_voh5i")
+shader_parameter/flashtime = 24.0
+shader_parameter/flashpower = 1.0
+shader_parameter/flashlines = 6.605
+shader_parameter/flashchange = Vector2(1, 1.686)
+shader_parameter/aberrationAmount = 1.0
+shader_parameter/aberrationDistancePower = Vector2(1, 1)
+shader_parameter/SAT = 1.0
+shader_parameter/HUE = 0.0
+shader_parameter/BRI = 0.97
+shader_parameter/filter_width = 5
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -207,6 +222,7 @@ texture = ExtResource("1_73ijd")
 centered = false
 
 [node name="HealthProgressBar" type="TextureProgressBar" parent="Bottom"]
+material = SubResource("ShaderMaterial_aiy3u")
 custom_minimum_size = Vector2(180, 64)
 layout_mode = 0
 offset_left = 67.0
@@ -221,6 +237,7 @@ texture_progress = ExtResource("2_ds64e")
 script = ExtResource("6_kw8as")
 
 [node name="WaveProgressBar" type="TextureProgressBar" parent="Bottom"]
+material = ExtResource("13_dpcyh")
 custom_minimum_size = Vector2(180, 64)
 layout_mode = 0
 offset_left = 67.0

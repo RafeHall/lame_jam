@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://byt4463k3p5j0"]
+
+[ext_resource type="FontFile" uid="uid://bhtgr64plnk86" path="res://sprites/IBMPlexMono-Bold.ttf" id="1_r7i40"]
+
+[resource]
+default_font = ExtResource("1_r7i40")

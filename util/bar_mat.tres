@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ctc64k8ix2chv"]
+
+[ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="1_yr2v3"]
+
+[resource]
+shader = ExtResource("1_yr2v3")
+shader_parameter/flashtime = 0.144
+shader_parameter/flashpower = 20.0
+shader_parameter/flashlines = 6.799
+shader_parameter/flashchange = Vector2(0.3, 0.05)
+shader_parameter/aberrationAmount = 0.5
+shader_parameter/aberrationDistancePower = Vector2(1, 1)
+shader_parameter/SAT = 1.0
+shader_parameter/HUE = 0.0
+shader_parameter/BRI = 1.0
+shader_parameter/filter_width = 5

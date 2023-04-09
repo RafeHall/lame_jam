@@ -30,6 +30,14 @@ window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
+[gui]
+
+theme/custom="res://sprites/base_theme.tres"
+theme/custom_font="res://sprites/IBMPlexMono-Bold.ttf"
+theme/default_font_antialiasing=0
+theme/default_font_hinting=0
+theme/default_font_generate_mipmaps=true
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
