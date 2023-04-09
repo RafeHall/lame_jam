@@ -16,16 +16,17 @@ zoom = Vector2(0.5, 0.5)
 scale = Vector2(2, 2)
 texture = ExtResource("1_d8svo")
 
+[node name="TowerTrimmedDown" type="Sprite2D" parent="Background"]
+position = Vector2(0, 281)
+texture = ExtResource("1_jqx7q")
+
 [node name="Floor1Trimmed" type="Sprite2D" parent="Background"]
-position = Vector2(0, 335)
+position = Vector2(0, 195)
 scale = Vector2(2, 1)
 texture = ExtResource("2_w5pxf")
 
 [node name="Base" type="Node2D" parent="."]
 position = Vector2(0, 281)
-
-[node name="TowerTrimmedDown" type="Sprite2D" parent="Base"]
-texture = ExtResource("1_jqx7q")
 
 [node name="TowerTrimmedUp" type="Sprite2D" parent="Base"]
 texture = ExtResource("2_ar2ex")
