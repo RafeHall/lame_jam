@@ -1,12 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxf7mudaj0ey1"]
+[gd_scene load_steps=2 format=3 uid="uid://bxf7mudaj0ey1"]
 
-[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_paw5i"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3kyk8"]
-atlas = ExtResource("1_paw5i")
-region = Rect2(0, 48, 48, 48)
+[ext_resource type="Texture2D" uid="uid://67ip1wc5vr6p" path="res://sprites/player/ui3/arrow90.png" id="1_72g2p"]
 
 [node name="RightAngleWire" type="Node2D"]
+metadata/_edit_horizontal_guides_ = []
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_3kyk8")
+texture = ExtResource("1_72g2p")
