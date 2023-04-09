@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=33 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
@@ -14,8 +14,11 @@
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
 [ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="10_voh5i"]
 [ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
-[ext_resource type="Material" path="res://util/bar_mat.tres" id="13_dpcyh"]
-[ext_resource type="Script" path="res://menus/game/wave_start_button.gd" id="16_ur5ei"]
+[ext_resource type="Material" uid="uid://ctc64k8ix2chv" path="res://util/bar_mat.tres" id="13_dpcyh"]
+[ext_resource type="Texture2D" uid="uid://bfvfu4celsdsg" path="res://sprites/player/ui2/startwavebtn.png" id="16_vo776"]
+[ext_resource type="Texture2D" uid="uid://did8jns5f5e36" path="res://sprites/player/ui2/startwavebtnpressed.png" id="17_lbr16"]
+[ext_resource type="Material" uid="uid://ddsqf0liuwd3c" path="res://util/basic_2d_additive.tres" id="18_rwwak"]
+[ext_resource type="Texture2D" uid="uid://c66cf1n628pc" path="res://sprites/player/ui2/btnlight.png" id="19_vr8c6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80ws5"]
 shader = ExtResource("1_bukbr")
@@ -76,6 +79,109 @@ _data = {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qxo3y"]
 shader = ExtResource("5_sud02")
 shader_parameter/amount = 40.0
+
+[sub_resource type="GDScript" id="GDScript_jafpx"]
+script/source = "extends TextureButton
+
+
+func _enter_tree() -> void:
+	Global.wave_completed.connect(_wave_completed);
+	
+func _ready():
+	$\"../AnimationPlayer\".play(\"Show\");
+
+func _wave_completed(wave: int) -> void:
+	disabled = false;
+	$\"../AnimationPlayer\".play(\"Show\");
+
+
+func _pressed() -> void:
+	disabled = true;
+	Global.request_wave_start();
+	$\"../AnimationPlayer\".stop(true);
+	$\"../AnimationPlayer\".play(\"Hide\");
+"
+
+[sub_resource type="Animation" id="Animation_gb3av"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(50, 9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Btnlight:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8oeke"]
+resource_name = "Hide"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(50, -100), Vector2(50, 9)]
+}
+
+[sub_resource type="Animation" id="Animation_gaf2g"]
+resource_name = "Idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Btnlight:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.470588, 0.254902, 0.254902, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l3y6n"]
+resource_name = "Show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(50, 9), Vector2(50, -100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7q5kp"]
+_data = {
+"Hide": SubResource("Animation_8oeke"),
+"Idle": SubResource("Animation_gaf2g"),
+"RESET": SubResource("Animation_gb3av"),
+"Show": SubResource("Animation_l3y6n")
+}
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aiy3u"]
 shader = ExtResource("10_voh5i")
@@ -217,6 +323,30 @@ rotation = -0.120428
 scale = Vector2(-1, 1)
 texture = ExtResource("1_1cd2g")
 
+[node name="WaveStartButton" type="Node2D" parent="Bottom"]
+position = Vector2(50, 9)
+scale = Vector2(0.5, 0.5)
+
+[node name="TextureButton" type="TextureButton" parent="Bottom/WaveStartButton"]
+offset_right = 219.0
+offset_bottom = 218.0
+texture_normal = ExtResource("16_vo776")
+texture_pressed = ExtResource("17_lbr16")
+texture_disabled = ExtResource("17_lbr16")
+script = SubResource("GDScript_jafpx")
+
+[node name="Btnlight" type="Sprite2D" parent="Bottom/WaveStartButton"]
+modulate = Color(0, 0, 0, 1)
+material = ExtResource("18_rwwak")
+texture = ExtResource("19_vr8c6")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Bottom/WaveStartButton"]
+libraries = {
+"": SubResource("AnimationLibrary_7q5kp")
+}
+next/Show = &"Idle"
+
 [node name="Sprite2D" type="Sprite2D" parent="Bottom"]
 texture = ExtResource("1_73ijd")
 centered = false
@@ -250,12 +380,3 @@ value = 50.0
 nine_patch_stretch = true
 texture_progress = ExtResource("3_gvafb")
 script = ExtResource("8_4wnwc")
-
-[node name="WaveStartButton" type="Button" parent="Bottom"]
-layout_mode = 0
-offset_left = 828.0
-offset_top = 362.0
-offset_right = 920.0
-offset_bottom = 393.0
-text = "Start Wave"
-script = ExtResource("16_ur5ei")
