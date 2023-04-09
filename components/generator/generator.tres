@@ -1,14 +1,23 @@
-[gd_resource type="Resource" script_class="Component" load_steps=4 format=3 uid="uid://c8l2i5w42mw3g"]
+[gd_resource type="Resource" script_class="Component" load_steps=6 format=3 uid="uid://c8l2i5w42mw3g"]
 
+[ext_resource type="Texture2D" uid="uid://dsube3jv4dv83" path="res://components/components.png" id="1_8owul"]
 [ext_resource type="Script" path="res://components/component.gd" id="1_vcr5l"]
 [ext_resource type="PackedScene" uid="uid://ybpvp17iv3pp" path="res://components/generator/generator.tscn" id="2_12meg"]
 [ext_resource type="Script" path="res://components/generator/generator.gd" id="2_45x0y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk502"]
+atlas = ExtResource("1_8owul")
+region = Rect2(0, 0, 48, 48)
 
 [resource]
 script = ExtResource("1_vcr5l")
 tile_script = ExtResource("2_45x0y")
 tile_scene = ExtResource("2_12meg")
+visuals_rotate = false
 valid_rotations = 1
+icon = SubResource("AtlasTexture_vk502")
+buyable = false
+cost = 250
 north_port = 2
 east_port = 2
 south_port = 2

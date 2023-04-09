@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3v744tfohr88"]
+
+[ext_resource type="Script" path="res://menus/shop/shop_menu.gd" id="1_e7miv"]
+
+[node name="ShopContainer" type="MarginContainer"]
+offset_left = 764.0
+offset_top = 25.0
+offset_right = 986.0
+offset_bottom = 352.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_e7miv")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 3

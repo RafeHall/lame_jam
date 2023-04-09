@@ -1,17 +1,23 @@
-[gd_resource type="Resource" script_class="Component" load_steps=5 format=3 uid="uid://clgclidhtgklq"]
+[gd_resource type="Resource" script_class="Component" load_steps=6 format=3 uid="uid://clgclidhtgklq"]
 
 [ext_resource type="Script" path="res://components/component.gd" id="1_jnirn"]
+[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_ya0k0"]
 [ext_resource type="Script" path="res://components/wires/straight_wire.gd" id="2_1ypye"]
 [ext_resource type="PackedScene" uid="uid://c31bx2e8x7g6r" path="res://components/wires/straight_wire.tscn" id="2_p4b42"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wfwrd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4b8w"]
+atlas = ExtResource("1_ya0k0")
+region = Rect2(0, 0, 48, 48)
 
 [resource]
 script = ExtResource("1_jnirn")
 tile_script = ExtResource("2_1ypye")
 tile_scene = ExtResource("2_p4b42")
-icon = SubResource("PlaceholderTexture2D_wfwrd")
+visuals_rotate = true
 valid_rotations = 9
+icon = SubResource("AtlasTexture_x4b8w")
+buyable = true
+cost = 25
 north_port = 3
 east_port = 0
 south_port = 3

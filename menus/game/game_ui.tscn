@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=7 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
+[ext_resource type="PackedScene" uid="uid://b3v744tfohr88" path="res://menus/shop/shop_menu.tscn" id="2_ckdhv"]
 [ext_resource type="Texture2D" uid="uid://c52ap14h8eojd" path="res://sprites/player/ui/line2.png" id="2_ds64e"]
 [ext_resource type="Texture2D" uid="uid://d3kxxyocr0grx" path="res://sprites/player/ui/line1.png" id="3_gvafb"]
 [ext_resource type="PackedScene" uid="uid://jjkx153xt7v0" path="res://menus/circuit_board/circuit_board_menu.tscn" id="5_qbnsv"]
@@ -45,12 +46,7 @@ offset_bottom = 387.0
 [node name="CircuitBoardMenu" parent="Bottom/EditorContainer" instance=ExtResource("5_qbnsv")]
 layout_mode = 1
 
-[node name="ShopContainer" type="Control" parent="Bottom"]
-anchors_preset = 0
-offset_left = 764.0
-offset_top = 25.0
-offset_right = 986.0
-offset_bottom = 352.0
+[node name="ShopContainer" parent="Bottom" instance=ExtResource("2_ckdhv")]
 
 [node name="UiSidethingy" type="Sprite2D" parent="Bottom"]
 modulate = Color(0.32549, 0.32549, 0.32549, 1)

@@ -123,7 +123,7 @@ func _input(event: InputEvent) -> void:
 				place_component(coord, _marker_component, _marker_direction);
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
 				remove_component(coord);
-
+			_update_marker();
 
 
 func valid_component_placement(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP) -> bool:

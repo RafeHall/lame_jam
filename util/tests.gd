@@ -22,7 +22,7 @@ func _run():
 	graph.add_edge(f, g);
 	graph.add_edge(g, h);
 	graph.add_edge(d, h);
-	graph.add_edge(h, a);
+#	graph.add_edge(h, a); # Invalid edge
 	
 	graph.walk_down(a, func(id, value, depth):
 		print(value);
