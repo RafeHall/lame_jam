@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2ibx68hklwyi"]
+[gd_scene load_steps=3 format=3 uid="uid://b5p62t68xilgu"]
 
 [ext_resource type="PackedScene" uid="uid://d1d4e1f4k8dut" path="res://menus/game/game_ui.tscn" id="1_fpn0a"]
 [ext_resource type="PackedScene" uid="uid://bmlsh0wrdgeeo" path="res://overworld/overworld_ui.tscn" id="2_jtiys"]
