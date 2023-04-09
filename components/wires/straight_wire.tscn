@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c31bx2e8x7g6r"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://components/wires/straight_wire_scene.gd" id="1_qb1tm"]
+[ext_resource type="Script" path="res://components/wires/wire_scene.gd" id="1_qb1tm"]
 [ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_vi64g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_av3pk"]

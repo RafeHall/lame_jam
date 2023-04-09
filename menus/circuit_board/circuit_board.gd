@@ -107,6 +107,13 @@ func _ready():
 		_marker_ports.add_child(out_port);
 
 
+func _process(delta: float) -> void:
+	if Global.current_component == null:
+		_marker_nodes.visible = false;
+	else:
+		_marker_nodes.visible = true;
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		_update_marker();
@@ -124,9 +131,20 @@ func _input(event: InputEvent) -> void:
 			var coord = _position_to_coord(mouse_position);
 			if event.button_index == MOUSE_BUTTON_LEFT:
 				place_component(coord, Global.current_component, _marker_direction);
+				_marker_direction = Component.Side.UP;
+				Global.current_component = null;
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				if has_component_tile(coord):
+					var component = get_component_tile(coord).component;
+					Global.money += component.cost / 2;
 				remove_component(coord);
+			elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				_rotate_marker(-1);
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				_rotate_marker(1);
+			
 			_update_marker();
+			
 
 
 func valid_component_placement(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP) -> bool:
@@ -171,6 +189,9 @@ func valid_component_placement(coord: Vector2i, component: Component, direction:
 
 
 func place_component(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP, locked = false) -> void:
+	if component == null:
+		return;
+	
 	if valid_component_placement(coord, component, direction):
 		var node = component.tile_scene.instantiate();
 		node.position = _coord_to_position(coord);
@@ -298,6 +319,9 @@ func _update_marker() -> void:
 
 
 func _rotate_marker(by: int) -> void:
+	if Global.current_component == null:
+		return;
+	
 	var new_index = posmod(Component.side_to_index(_marker_direction) + by, 4);
 	_marker_direction = Component.index_to_side(new_index);
 	

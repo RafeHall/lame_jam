@@ -111,6 +111,7 @@ centered = false
 
 [node name="HealthProgressBar" type="TextureProgressBar" parent="Bottom"]
 custom_minimum_size = Vector2(180, 64)
+layout_mode = 0
 offset_left = 67.0
 offset_top = 8.0
 offset_right = 247.0
@@ -124,6 +125,7 @@ script = ExtResource("6_kw8as")
 
 [node name="WaveProgressBar" type="TextureProgressBar" parent="Bottom"]
 custom_minimum_size = Vector2(180, 64)
+layout_mode = 0
 offset_left = 67.0
 offset_top = 96.0
 offset_right = 247.0
@@ -147,7 +149,7 @@ theme_override_font_sizes/normal_font_size = 12
 theme_override_font_sizes/bold_font_size = 12
 bbcode_enabled = true
 text = "[outline_size=2][outline_color=black][b]Left Click[/b] to place component.
-[b]Right Click[/b] to sell component.
+[b]Right Click[/b] to sell component for half the cost.
 [b]E[/b] or [b]Scroll Down[/b] to rotate component clockwise.
 [b]Q[/b] or [b]Scroll Up[/b] to rotate comonent counter-clockwise.
 [/outline_color][/outline_size]"

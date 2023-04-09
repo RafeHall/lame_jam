@@ -17,5 +17,12 @@ func _ready() -> void:
 
 
 func _item_clicked(component: Component) -> void:
-	print(component.cost);
-	Global.current_component = component;
+	var spending_money = Global.money;
+	if Global.current_component != null:
+		spending_money += Global.current_component.cost;
+		
+	if spending_money >= component.cost:
+		if Global.current_component != null:
+			Global.money += Global.current_component.cost;
+		Global.money -= component.cost;
+		Global.current_component = component;
