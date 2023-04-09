@@ -134,10 +134,15 @@ func _input(event: InputEvent) -> void:
 				_marker_direction = Component.Side.UP;
 				Global.current_component = null;
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				if has_component_tile(coord):
-					var component = get_component_tile(coord).component;
-					Global.money += component.cost / 2;
-				remove_component(coord);
+				if Global.current_component != null:
+					Global.money += Global.current_component.cost;
+					Global.current_component = null;
+				elif has_component_tile(coord):
+					var component_tile = get_component_tile(coord);
+					if not component_tile.locked:
+						var component = component_tile.component;
+						Global.money += component.cost / 2;
+						remove_component(coord);
 			elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
 				_rotate_marker(-1);
 			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
@@ -195,7 +200,8 @@ func place_component(coord: Vector2i, component: Component, direction: Component
 	if valid_component_placement(coord, component, direction):
 		var node = component.tile_scene.instantiate();
 		node.position = _coord_to_position(coord);
-		node.rotation = Vector2(Component.side_to_offset(direction)).angle() + ANGLE_OFFSET;
+		if component.visuals_rotate:
+			node.rotation = Vector2(Component.side_to_offset(direction)).angle() + ANGLE_OFFSET;
 		_components.add_child(node);
 		
 		var component_ports: Array[PortTile] = [];

@@ -1,11 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://bido6dbjus0cn"]
+[gd_scene load_steps=14 format=3 uid="uid://bido6dbjus0cn"]
 
 [ext_resource type="Texture2D" uid="uid://cjbrej3o5fd58" path="res://sprites/world/background1.png" id="1_d8svo"]
 [ext_resource type="Texture2D" uid="uid://c3ai3vf2hw6ha" path="res://sprites/player/tower_trimmed_down.png" id="1_jqx7q"]
+[ext_resource type="Script" path="res://overworld/overworld.gd" id="1_xhiqt"]
 [ext_resource type="Texture2D" uid="uid://b7r85d5dtyl14" path="res://sprites/player/tower_trimmed_up.png" id="2_ar2ex"]
+[ext_resource type="Resource" path="res://overworld/enemies/bat/bat.tres" id="2_qpdok"]
 [ext_resource type="Texture2D" uid="uid://ca2lerljtncg4" path="res://sprites/world/floor1_trimmed.png" id="2_w5pxf"]
+[ext_resource type="Resource" uid="uid://l2r21rrd1tuc" path="res://overworld/enemies/spider/spider.tres" id="3_n1erj"]
+[ext_resource type="PackedScene" uid="uid://d2wbpr7trn2c1" path="res://sprites/enemy/spider/spider1.tscn" id="6_xx26v"]
+[ext_resource type="PackedScene" uid="uid://b2i0sm02tfuyv" path="res://sprites/enemy/spider/spider2.tscn" id="7_e6oaq"]
+[ext_resource type="PackedScene" uid="uid://cq47y470vr7vq" path="res://sprites/enemy/spider/spider3.tscn" id="8_p68p0"]
+[ext_resource type="PackedScene" uid="uid://dxcdrfv27cttp" path="res://sprites/enemy/bat/bat.tscn" id="9_qpkve"]
+
+[sub_resource type="Curve" id="Curve_m3v5a"]
+min_value = 4.0
+max_value = 85.0
+_data = [Vector2(0, 4), 0.0, 40.913, 0, 0, Vector2(1, 85), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_un4kq"]
+size = Vector2(146, 1210)
 
 [node name="Overworld" type="Node2D"]
+script = ExtResource("1_xhiqt")
+enemy_variants = Array[Resource("res://overworld/enemies/enemy.gd")]([ExtResource("2_qpdok"), ExtResource("3_n1erj")])
+wave_intensity_curve = SubResource("Curve_m3v5a")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -30,3 +49,29 @@ position = Vector2(0, 281)
 
 [node name="TowerTrimmedUp" type="Sprite2D" parent="Base"]
 texture = ExtResource("2_ar2ex")
+
+[node name="Area2D" type="Area2D" parent="Base"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base/Area2D"]
+position = Vector2(0, -282)
+shape = SubResource("RectangleShape2D_un4kq")
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="spider1" parent="Enemies" instance=ExtResource("6_xx26v")]
+position = Vector2(1090, 123)
+
+[node name="spider2" parent="Enemies" instance=ExtResource("7_e6oaq")]
+position = Vector2(950, 251)
+
+[node name="spider3" parent="Enemies" instance=ExtResource("8_p68p0")]
+position = Vector2(1262, 212)
+
+[node name="bat" parent="Enemies" instance=ExtResource("9_qpkve")]
+position = Vector2(1262, -173)
+
+[node name="GroundCenter" type="Marker2D" parent="."]
+position = Vector2(0, 194)
+
+[node name="AirCenter" type="Marker2D" parent="."]
+position = Vector2(0, -108)

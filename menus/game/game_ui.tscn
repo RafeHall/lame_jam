@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=13 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://menus/game/health_bar.gd" id="6_kw8as"]
 [ext_resource type="Script" path="res://menus/game/money_counter.gd" id="7_0n8xk"]
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
+[ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80ws5"]
 shader = ExtResource("1_bukbr")
@@ -113,9 +114,9 @@ centered = false
 custom_minimum_size = Vector2(180, 64)
 layout_mode = 0
 offset_left = 67.0
-offset_top = 8.0
+offset_top = 10.0
 offset_right = 247.0
-offset_bottom = 72.0
+offset_bottom = 74.0
 scale = Vector2(1, 2)
 mouse_filter = 2
 value = 50.0
@@ -127,9 +128,9 @@ script = ExtResource("6_kw8as")
 custom_minimum_size = Vector2(180, 64)
 layout_mode = 0
 offset_left = 67.0
-offset_top = 96.0
+offset_top = 97.0
 offset_right = 247.0
-offset_bottom = 160.0
+offset_bottom = 161.0
 scale = Vector2(1, 2)
 mouse_filter = 2
 value = 50.0
@@ -137,7 +138,7 @@ nine_patch_stretch = true
 texture_progress = ExtResource("3_gvafb")
 script = ExtResource("8_4wnwc")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Bottom"]
+[node name="HelpLabel" type="RichTextLabel" parent="Bottom"]
 layout_mode = 0
 offset_left = 1041.0
 offset_top = 163.0
@@ -153,3 +154,4 @@ text = "[outline_size=2][outline_color=black][b]Left Click[/b] to place componen
 [b]E[/b] or [b]Scroll Down[/b] to rotate component clockwise.
 [b]Q[/b] or [b]Scroll Up[/b] to rotate comonent counter-clockwise.
 [/outline_color][/outline_size]"
+script = ExtResource("11_w7gw5")

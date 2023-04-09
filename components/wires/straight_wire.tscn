@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://53hpg3iqum8w"]
 
-[ext_resource type="Script" path="res://components/wires/wire_scene.gd" id="1_qb1tm"]
 [ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_vi64g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_av3pk"]
@@ -8,7 +7,6 @@ atlas = ExtResource("1_vi64g")
 region = Rect2(0, 0, 48, 48)
 
 [node name="StraightWire" type="Node2D"]
-script = ExtResource("1_qb1tm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_av3pk")

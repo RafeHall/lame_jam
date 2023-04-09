@@ -1,12 +1,16 @@
-[gd_resource type="Resource" script_class="Components" load_steps=5 format=3 uid="uid://b2oiaj6phhovw"]
+[gd_resource type="Resource" script_class="Components" load_steps=7 format=3 uid="uid://b2oiaj6phhovw"]
 
 [ext_resource type="Script" path="res://components/components.gd" id="1_mksju"]
 [ext_resource type="Resource" uid="uid://c8l2i5w42mw3g" path="res://components/generator/generator.tres" id="2_w01rp"]
+[ext_resource type="Resource" uid="uid://7yiweiqyfub1" path="res://components/wires/right_angle_wire.tres" id="3_4bqlv"]
 [ext_resource type="Resource" uid="uid://btjr8xwwbmiib" path="res://components/turret/turret.tres" id="3_ixmlv"]
 [ext_resource type="Resource" uid="uid://dcp67t6fftgmh" path="res://components/capacitor/capacitor.tres" id="4_ivocp"]
+[ext_resource type="Resource" uid="uid://dj8ylaon7q0ss" path="res://components/wires/straight_wire.tres" id="5_5wuml"]
 
 [resource]
 script = ExtResource("1_mksju")
 generator = ExtResource("2_w01rp")
 capacitor = ExtResource("4_ivocp")
 turret = ExtResource("3_ixmlv")
+straight_wire = ExtResource("5_5wuml")
+right_angle_wire = ExtResource("3_4bqlv")

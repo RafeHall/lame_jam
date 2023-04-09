@@ -28,6 +28,7 @@ enum Power {
 @export var tile_scene: PackedScene = null;
 @export var visuals_rotate: bool = false;
 @export_flags("Up:1", "Down:4", "Left:8", "Right:2") var valid_rotations: int = Side.UP;
+@export_multiline var description: String = "DEFAULT DESCRIPTION. CHANGE THIS!!!";
 
 @export_group("Shop")
 @export var icon: Texture2D = null;
