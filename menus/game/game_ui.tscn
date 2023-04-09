@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=10 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://c52ap14h8eojd" path="res://sprites/player/ui/line2.png" id="2_ds64e"]
 [ext_resource type="Texture2D" uid="uid://d3kxxyocr0grx" path="res://sprites/player/ui/line1.png" id="3_gvafb"]
 [ext_resource type="PackedScene" uid="uid://jjkx153xt7v0" path="res://menus/circuit_board/circuit_board_menu.tscn" id="5_qbnsv"]
+[ext_resource type="Script" path="res://menus/game/health_bar.gd" id="6_kw8as"]
+[ext_resource type="Script" path="res://menus/game/money_counter.gd" id="7_0n8xk"]
+[ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -46,7 +49,15 @@ offset_bottom = 387.0
 [node name="CircuitBoardMenu" parent="Bottom/EditorContainer" instance=ExtResource("5_qbnsv")]
 layout_mode = 1
 
-[node name="ShopContainer" parent="Bottom" instance=ExtResource("2_ckdhv")]
+[node name="ShopContainer" type="Control" parent="Bottom"]
+anchors_preset = 0
+offset_left = 762.0
+offset_top = 25.0
+offset_right = 984.0
+offset_bottom = 352.0
+
+[node name="ShopMenu" parent="Bottom/ShopContainer" instance=ExtResource("2_ckdhv")]
+layout_mode = 0
 
 [node name="UiSidethingy" type="Sprite2D" parent="Bottom"]
 modulate = Color(0.32549, 0.32549, 0.32549, 1)
@@ -77,6 +88,7 @@ mouse_filter = 2
 value = 50.0
 nine_patch_stretch = true
 texture_progress = ExtResource("2_ds64e")
+script = ExtResource("6_kw8as")
 
 [node name="WaveProgressBar" type="TextureProgressBar" parent="Bottom"]
 custom_minimum_size = Vector2(180, 64)
@@ -90,6 +102,7 @@ mouse_filter = 2
 value = 50.0
 nine_patch_stretch = true
 texture_progress = ExtResource("3_gvafb")
+script = ExtResource("8_4wnwc")
 
 [node name="MoneyCounterText" type="Label" parent="Bottom"]
 layout_mode = 0
@@ -100,3 +113,21 @@ offset_bottom = 105.0
 text = "1000"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("7_0n8xk")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Bottom"]
+layout_mode = 0
+offset_left = 1041.0
+offset_top = 163.0
+offset_right = 1249.0
+offset_bottom = 369.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = 4
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[outline_size=2][outline_color=black][b]Left Click[/b] to place component.
+[b]Right Click[/b] to sell component.
+[b]E[/b] or [b]Scroll Down[/b] to rotate component clockwise.
+[b]Q[/b] or [b]Scroll Up[/b] to rotate comonent counter-clockwise.
+[/outline_color][/outline_size]"

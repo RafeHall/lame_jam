@@ -21,7 +21,8 @@ var _tiles: Array[Dictionary] = [{}, {}];
 @onready var _marker_nodes: Node2D = $MarkerNodes;
 @onready var _marker_ports: Node2D = $MarkerNodes/MarkerPorts;
 
-@onready var _marker_component: Component = components.capacitor;
+#@onready var _marker_component: Component = components.capacitor;
+
 var _marker: Node = null;
 var _marker_in_ports: Array = [];
 var _marker_out_ports: Array = [];
@@ -40,12 +41,14 @@ class ComponentTile extends RefCounted:
 	var node: Node = null;
 	var graph_id: int = -1;
 	var ports: Array[PortTile] = [];
+	var locked: bool = false;
 	
-	func _init(component: Component, direction: Component.Side, node: Node, ports: Array[PortTile]) -> void:
+	func _init(component: Component, direction: Component.Side, node: Node, ports: Array[PortTile], locked: bool) -> void:
 		self.component = component;
 		self.direction = direction;
 		self.node = node;
 		self.ports = ports;
+		self.locked = locked;
 
 
 class PortTile extends RefCounted:
@@ -66,19 +69,19 @@ func _ready():
 	
 	valid_component_placement(Vector2i(0, -1), components.turret, Component.Side.UP);
 	
-	place_component(Vector2i.ZERO, components.generator);
+	place_component(Vector2i.ZERO, components.generator, Component.Side.UP, true);
 	
-	place_component(Vector2i(TURRET_OFFSET, TURRET_OFFSET), components.turret, Component.Side.RIGHT);
-	place_component(Vector2i(TURRET_OFFSET, -TURRET_OFFSET), components.turret, Component.Side.RIGHT);
-	place_component(Vector2i(-TURRET_OFFSET, -TURRET_OFFSET), components.turret, Component.Side.LEFT);
-	place_component(Vector2i(-TURRET_OFFSET, TURRET_OFFSET), components.turret, Component.Side.LEFT);
+	place_component(Vector2i(TURRET_OFFSET, TURRET_OFFSET), components.turret, Component.Side.RIGHT, true);
+	place_component(Vector2i(TURRET_OFFSET, -TURRET_OFFSET), components.turret, Component.Side.RIGHT, true);
+	place_component(Vector2i(-TURRET_OFFSET, -TURRET_OFFSET), components.turret, Component.Side.LEFT, true);
+	place_component(Vector2i(-TURRET_OFFSET, TURRET_OFFSET), components.turret, Component.Side.LEFT, true);
 	
 	place_component(Vector2i(0, -2), components.capacitor, Component.Side.UP);
 	
 #	place_wire(Vector2i(0, 1), true, Component.Side.RIGHT);
 	
 	_marker = Sprite2D.new();
-	_marker.scale = Vector2(1.333, 1.333); # NOTE: This is to fit the testing wire textures
+#	_marker.scale = Vector2(1.333, 1.333); # NOTE: This is to fit the testing wire textures
 	_marker_nodes.add_child(_marker);
 	
 	for side in Component.Side.values():
@@ -120,7 +123,7 @@ func _input(event: InputEvent) -> void:
 			var mouse_position = get_local_mouse_position();
 			var coord = _position_to_coord(mouse_position);
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				place_component(coord, _marker_component, _marker_direction);
+				place_component(coord, Global.current_component, _marker_direction);
 			elif event.button_index == MOUSE_BUTTON_RIGHT:
 				remove_component(coord);
 			_update_marker();
@@ -167,7 +170,7 @@ func valid_component_placement(coord: Vector2i, component: Component, direction:
 	return true;
 
 
-func place_component(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP) -> void:
+func place_component(coord: Vector2i, component: Component, direction: Component.Side = Component.Side.UP, locked = false) -> void:
 	if valid_component_placement(coord, component, direction):
 		var node = component.tile_scene.instantiate();
 		node.position = _coord_to_position(coord);
@@ -201,7 +204,7 @@ func place_component(coord: Vector2i, component: Component, direction: Component
 				component_ports.append(port_tile);
 				_get_port_tiles()[coord + offset] = port_tile;
 		
-		var component_tile = ComponentTile.new(component, direction, node, component_ports);
+		var component_tile = ComponentTile.new(component, direction, node, component_ports, locked);
 		component_tile.graph_id = _graph.add_node(component_tile);
 		_get_component_tiles()[coord] = component_tile;
 
@@ -211,6 +214,9 @@ func remove_component(coord: Vector2i) -> void:
 		return;
 	
 	var tile_component = get_component_tile(coord);
+	if tile_component.locked:
+		return;
+	
 	tile_component.node.queue_free();
 	for port in tile_component.ports:
 		port.node.queue_free();
@@ -249,6 +255,9 @@ func has_port(coord: Vector2i) -> bool:
 
 
 func _update_marker() -> void:
+	if Global.current_component == null:
+		return;
+	
 	var mouse_position = get_local_mouse_position();
 	
 	var tile_coord = _position_to_coord(mouse_position);
@@ -257,7 +266,7 @@ func _update_marker() -> void:
 	_marker_nodes.position = pos;
 	
 	for i in range(4):
-		var port = _marker_component.ports[i];
+		var port = Global.current_component.ports[i];
 		
 		if port == Component.Port.INPUT:
 			_marker_in_ports[i].visible = true;
@@ -270,15 +279,15 @@ func _update_marker() -> void:
 			_marker_out_ports[i].visible = false;
 	
 	var rot = Vector2(Component.side_to_offset(_marker_direction)).angle() + ANGLE_OFFSET;
-	if _marker_component.visuals_rotate:
+	if Global.current_component.visuals_rotate:
 		_marker_nodes.rotation = rot;
 		_marker_ports.rotation = 0;
 	else:
 		_marker_nodes.rotation = 0;
 		_marker_ports.rotation = rot;
 	
-	var valid = valid_component_placement(tile_coord, _marker_component, _marker_direction);
-	_marker.texture = _marker_component.icon;
+	var valid = valid_component_placement(tile_coord, Global.current_component, _marker_direction);
+	_marker.texture = Global.current_component.icon;
 	
 	if not valid_coord(tile_coord):
 		_marker_nodes.modulate = Color.TRANSPARENT;
@@ -292,7 +301,7 @@ func _rotate_marker(by: int) -> void:
 	var new_index = posmod(Component.side_to_index(_marker_direction) + by, 4);
 	_marker_direction = Component.index_to_side(new_index);
 	
-	if not Component.rotations_have(_marker_component.valid_rotations, _marker_direction):
+	if not Component.rotations_have(Global.current_component.valid_rotations, _marker_direction):
 		_rotate_marker(by);
 
 

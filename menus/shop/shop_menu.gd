@@ -18,3 +18,4 @@ func _ready() -> void:
 
 func _item_clicked(component: Component) -> void:
 	print(component.cost);
+	Global.current_component = component;

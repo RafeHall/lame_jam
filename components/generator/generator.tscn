@@ -9,6 +9,4 @@ region = Rect2(0, 0, 48, 48)
 [node name="Generator" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(1.333, 1.333)
 texture = SubResource("AtlasTexture_e0rb0")

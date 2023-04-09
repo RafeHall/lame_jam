@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bido6dbjus0cn"]
+
+[ext_resource type="Texture2D" uid="uid://cjbrej3o5fd58" path="res://sprites/world/background1.png" id="1_d8svo"]
+[ext_resource type="Texture2D" uid="uid://c3ai3vf2hw6ha" path="res://sprites/player/tower_trimmed_down.png" id="1_jqx7q"]
+[ext_resource type="Texture2D" uid="uid://b7r85d5dtyl14" path="res://sprites/player/tower_trimmed_up.png" id="2_ar2ex"]
+[ext_resource type="Texture2D" uid="uid://ca2lerljtncg4" path="res://sprites/world/floor1_trimmed.png" id="2_w5pxf"]
+
+[node name="Overworld" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Background1" type="Sprite2D" parent="Background"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_d8svo")
+
+[node name="Floor1Trimmed" type="Sprite2D" parent="Background"]
+position = Vector2(0, 335)
+scale = Vector2(2, 1)
+texture = ExtResource("2_w5pxf")
+
+[node name="Base" type="Node2D" parent="."]
+position = Vector2(0, 281)
+
+[node name="TowerTrimmedDown" type="Sprite2D" parent="Base"]
+texture = ExtResource("1_jqx7q")
+
+[node name="TowerTrimmedUp" type="Sprite2D" parent="Base"]
+texture = ExtResource("2_ar2ex")
