@@ -116,6 +116,14 @@ func _process(delta: float) -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		var mouse_position = get_local_mouse_position();
+		var coord = _position_to_coord(mouse_position);
+		if valid_coord(coord):
+			if has_component_tile(coord):
+				var component = get_component_tile(coord).component;
+				if Global.focused_component != component:
+					Global.focused_component = component;
+		
 		_update_marker();
 	elif event is InputEventKey:
 		if event.pressed:

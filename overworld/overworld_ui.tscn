@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmlsh0wrdgeeo"]
 
 [ext_resource type="PackedScene" uid="uid://bido6dbjus0cn" path="res://overworld/overworld.tscn" id="1_qkr2i"]
-[ext_resource type="Material" uid="uid://bet4r10i1rexh" path="res://util/basic_2d_subtractive.tres" id="2_iv86d"]
+[ext_resource type="Material" path="res://util/basic_2d_subtractive.tres" id="2_iv86d"]
 
 [sub_resource type="Gradient" id="Gradient_0h5t4"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)

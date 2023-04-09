@@ -10,6 +10,7 @@ const VISUALS_SELECTION: Array[PackedScene] = [
 
 
 func _enter_tree() -> void:
+	super._enter_tree();
 	randomize();
 	var visuals = VISUALS_SELECTION.pick_random().instantiate();
 	visuals.name = "Visuals";

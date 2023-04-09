@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://53hpg3iqum8w"]
 
-[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_vi64g"]
+[ext_resource type="Texture2D" uid="uid://cemlws8qnyoos" path="res://sprites/player/ui3/arrow_line.png" id="1_01xgl"]
 
 [node name="StraightWire" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_vi64g")
+texture = ExtResource("1_01xgl")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d1d4e1f4k8dut"]
+[gd_scene load_steps=24 format=3 uid="uid://d1d4e1f4k8dut"]
 
 [ext_resource type="Texture2D" uid="uid://bcja4p7fvaogx" path="res://sprites/player/ui2/ui_sidethingy.png" id="1_1cd2g"]
 [ext_resource type="Texture2D" uid="uid://bglh7fc6o2vh2" path="res://sprites/player/ui2/ui2.png" id="1_73ijd"]
@@ -14,7 +14,8 @@
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
 [ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="10_voh5i"]
 [ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
-[ext_resource type="Material" uid="uid://ctc64k8ix2chv" path="res://util/bar_mat.tres" id="13_dpcyh"]
+[ext_resource type="Material" path="res://util/bar_mat.tres" id="13_dpcyh"]
+[ext_resource type="Script" path="res://menus/game/wave_start_button.gd" id="16_ur5ei"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80ws5"]
 shader = ExtResource("1_bukbr")
@@ -181,14 +182,13 @@ offset_right = 714.32
 offset_bottom = 207.78
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_constants/line_separation = 4
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/bold_font_size = 11
 bbcode_enabled = true
-text = "[outline_size=2][outline_color=black][b]Left Click[/b] to place component.
+text = "[b]Left Click[/b] to place component.
 [b]Right Click[/b] to sell component for half the cost.
 [b]E[/b] or [b]Scroll Down[/b] to rotate component clockwise.
-[b]Q[/b] or [b]Scroll Up[/b] to rotate comonent counter-clockwise.
-[/outline_color][/outline_size]"
+[b]Q[/b] or [b]Scroll Up[/b] to rotate comonent counter-clockwise."
 script = ExtResource("11_w7gw5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Bottom/MonitorFX/HelpLabel"]
@@ -250,3 +250,12 @@ value = 50.0
 nine_patch_stretch = true
 texture_progress = ExtResource("3_gvafb")
 script = ExtResource("8_4wnwc")
+
+[node name="WaveStartButton" type="Button" parent="Bottom"]
+layout_mode = 0
+offset_left = 828.0
+offset_top = 362.0
+offset_right = 920.0
+offset_bottom = 393.0
+text = "Start Wave"
+script = ExtResource("16_ur5ei")

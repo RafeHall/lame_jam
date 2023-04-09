@@ -10,14 +10,22 @@ extends Control
 func _ready() -> void:
 	for component in components.get_as_array():
 		if component.buyable:
-			var shop_item = shop_item_scene.instantiate();
+			var shop_item: Control = shop_item_scene.instantiate();
 			shop_item.component = component;
 			shop_item.clicked.connect(_item_clicked);
+			shop_item.mouse_entered.connect(func():
+				_item_hovered(component);
+			);
 			item_container.add_child(shop_item);
+
+
+func _item_hovered(component: Component) -> void:
+	Global.focused_component = component;
 
 
 func _item_clicked(component: Component) -> void:
 	var spending_money = Global.money;
+	
 	if Global.current_component != null:
 		spending_money += Global.current_component.cost;
 		

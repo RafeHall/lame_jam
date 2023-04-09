@@ -1,13 +1,9 @@
-[gd_resource type="Resource" script_class="Component" load_steps=6 format=3 uid="uid://dcp67t6fftgmh"]
+[gd_resource type="Resource" script_class="Component" load_steps=5 format=3 uid="uid://dcp67t6fftgmh"]
 
-[ext_resource type="Texture2D" uid="uid://dsube3jv4dv83" path="res://components/components.png" id="1_3emeu"]
 [ext_resource type="Script" path="res://components/component.gd" id="1_vxgbh"]
+[ext_resource type="Texture2D" uid="uid://ij70h3dhhe77" path="res://sprites/player/ui3/capacitor1.png" id="1_wk37x"]
 [ext_resource type="Script" path="res://components/capacitor/capacitor.gd" id="2_rswqw"]
 [ext_resource type="PackedScene" uid="uid://cdl7is2cmly5j" path="res://components/capacitor/capacitor.tscn" id="2_y1c3o"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r1r72"]
-atlas = ExtResource("1_3emeu")
-region = Rect2(0, 48, 48, 48)
 
 [resource]
 script = ExtResource("1_vxgbh")
@@ -15,8 +11,8 @@ tile_script = ExtResource("2_rswqw")
 tile_scene = ExtResource("2_y1c3o")
 visuals_rotate = true
 valid_rotations = 15
-description = "DEFAULT DESCRIPTION. CHANGE THIS!!!"
-icon = SubResource("AtlasTexture_r1r72")
+description = "One input and one output, [b]charges[/b] over [b]three[/b] ticks and [b]outputs[/b] power level [b]four[/b]."
+icon = ExtResource("1_wk37x")
 buyable = true
 cost = 250
 north_port = 2

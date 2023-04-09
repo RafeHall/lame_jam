@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bido6dbjus0cn"]
+[gd_scene load_steps=12 format=3 uid="uid://bido6dbjus0cn"]
 
 [ext_resource type="Texture2D" uid="uid://cjbrej3o5fd58" path="res://sprites/world/background1.png" id="1_d8svo"]
 [ext_resource type="Texture2D" uid="uid://c3ai3vf2hw6ha" path="res://sprites/player/tower_trimmed_down.png" id="1_jqx7q"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" path="res://overworld/enemies/bat/bat.tres" id="2_qpdok"]
 [ext_resource type="Texture2D" uid="uid://ca2lerljtncg4" path="res://sprites/world/floor1_trimmed.png" id="2_w5pxf"]
 [ext_resource type="Resource" uid="uid://l2r21rrd1tuc" path="res://overworld/enemies/spider/spider.tres" id="3_n1erj"]
+[ext_resource type="PackedScene" uid="uid://byeqlr3uq8e8p" path="res://overworld/turret/turret.tscn" id="8_k8iqo"]
 
 [sub_resource type="Curve" id="Curve_m3v5a"]
 min_value = 4.0
@@ -14,13 +15,19 @@ max_value = 85.0
 _data = [Vector2(0, 4), 0.0, 40.913, 0, 0, Vector2(1, 85), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Curve" id="Curve_xj5ep"]
+max_value = 15.0
+_data = [Vector2(0, 0), 0.0, 15.0, 0, 1, Vector2(1, 15), 15.0, 0.0, 1, 0]
+point_count = 2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_un4kq"]
-size = Vector2(146, 1210)
+size = Vector2(206, 1210)
 
 [node name="Overworld" type="Node2D"]
 script = ExtResource("1_xhiqt")
 enemy_variants = Array[Resource("res://overworld/enemies/enemy.gd")]([ExtResource("2_qpdok"), ExtResource("3_n1erj")])
 wave_intensity_curve = SubResource("Curve_m3v5a")
+spawn_delay_curve = SubResource("Curve_xj5ep")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -43,21 +50,36 @@ texture = ExtResource("2_w5pxf")
 [node name="Base" type="Node2D" parent="."]
 position = Vector2(0, 281)
 
-[node name="TowerTrimmedUp" type="Sprite2D" parent="Base"]
-texture = ExtResource("2_ar2ex")
-
 [node name="TowerArea" type="Area2D" parent="Base"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base/TowerArea"]
 position = Vector2(0, -282)
 shape = SubResource("RectangleShape2D_un4kq")
 
+[node name="TowerTrimmedUp" type="Sprite2D" parent="Base"]
+texture = ExtResource("2_ar2ex")
+
+[node name="Turret" parent="Base" instance=ExtResource("8_k8iqo")]
+position = Vector2(51, -374)
+
+[node name="Turret2" parent="Base" instance=ExtResource("8_k8iqo")]
+position = Vector2(51, -214)
+
+[node name="Turret3" parent="Base" instance=ExtResource("8_k8iqo")]
+position = Vector2(-51, -374)
+flipped = true
+
+[node name="Turret4" parent="Base" instance=ExtResource("8_k8iqo")]
+position = Vector2(-51, -214)
+flipped = true
+
 [node name="Enemies" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="GroundCenter" type="Marker2D" parent="."]
 position = Vector2(0, 194)
 
 [node name="AirCenter" type="Marker2D" parent="."]
-position = Vector2(0, -108)
+position = Vector2(0, -35)
 
 [connection signal="area_entered" from="Base/TowerArea" to="." method="_on_tower_area_area_entered"]

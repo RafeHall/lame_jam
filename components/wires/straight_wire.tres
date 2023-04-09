@@ -1,13 +1,9 @@
-[gd_resource type="Resource" script_class="Component" load_steps=6 format=3 uid="uid://dj8ylaon7q0ss"]
+[gd_resource type="Resource" script_class="Component" load_steps=5 format=3 uid="uid://dj8ylaon7q0ss"]
 
 [ext_resource type="Script" path="res://components/component.gd" id="1_jnirn"]
-[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_ya0k0"]
+[ext_resource type="Texture2D" uid="uid://cemlws8qnyoos" path="res://sprites/player/ui3/arrow_line.png" id="1_ydm3h"]
 [ext_resource type="PackedScene" uid="uid://53hpg3iqum8w" path="res://components/wires/straight_wire.tscn" id="3_cv867"]
 [ext_resource type="Script" path="res://components/wires/wire.gd" id="4_jpknh"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x4b8w"]
-atlas = ExtResource("1_ya0k0")
-region = Rect2(0, 0, 48, 48)
 
 [resource]
 script = ExtResource("1_jnirn")
@@ -15,11 +11,11 @@ tile_script = ExtResource("4_jpknh")
 tile_scene = ExtResource("3_cv867")
 visuals_rotate = true
 valid_rotations = 9
-description = "DEFAULT DESCRIPTION. CHANGE THIS!!!"
-icon = SubResource("AtlasTexture_x4b8w")
+description = "Used to connect components."
+icon = ExtResource("1_ydm3h")
 buyable = true
 cost = 30
-north_port = 3
-east_port = 0
-south_port = 3
-west_port = 0
+north_port = 0
+east_port = 3
+south_port = 0
+west_port = 3
