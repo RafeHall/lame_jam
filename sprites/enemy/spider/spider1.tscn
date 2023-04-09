@@ -1,6 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2wbpr7trn2c1"]
+[gd_scene load_steps=7 format=3 uid="uid://cytsvn5psall7"]
 
 [ext_resource type="Texture2D" uid="uid://xvwrm0722ili" path="res://sprites/enemy/spider/spider1.png" id="1_q381g"]
+
+[sub_resource type="GDScript" id="GDScript_n178k"]
+script/source = "extends Node2D
+
+func _ready():
+	$AnimatedSprite2D.play(\"default\");
+	$AnimatedSprite2D.speed_scale = randf_range(0.9,1.1);
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaotm"]
 atlas = ExtResource("1_q381g")
@@ -32,6 +40,7 @@ animations = [{
 }]
 
 [node name="spider1" type="Node2D"]
+script = SubResource("GDScript_n178k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n5kqn")
