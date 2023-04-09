@@ -4,55 +4,61 @@
 [ext_resource type="Material" uid="uid://bet4r10i1rexh" path="res://util/basic_2d_subtractive.tres" id="2_iv86d"]
 
 [sub_resource type="Gradient" id="Gradient_0h5t4"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_vbkgx"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e5lta"]
 gradient = SubResource("Gradient_0h5t4")
 
 [sub_resource type="Gradient" id="Gradient_hag5p"]
-colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_s7a5v"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_6thu0"]
 gradient = SubResource("Gradient_hag5p")
 
 [node name="OverworldUI" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1280.0
-offset_bottom = 328.0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -350.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(1280, 328)
+size = Vector2i(1280, 370)
 render_target_update_mode = 4
 
 [node name="Overworld" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_qkr2i")]
 
 [node name="TextureRect" type="TextureRect" parent="."]
 material = ExtResource("2_iv86d")
-layout_mode = 1
-anchors_preset = -1
+layout_mode = 2
 anchor_right = 0.1
 anchor_bottom = 1.0
+offset_right = 128.0
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_vbkgx")
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_e5lta")
 
 [node name="TextureRect2" type="TextureRect" parent="."]
 material = ExtResource("2_iv86d")
-layout_mode = 1
-anchors_preset = -1
+layout_mode = 2
 anchor_left = 0.9
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -128.0
 grow_horizontal = 0
 grow_vertical = 2
-texture = SubResource("GradientTexture1D_s7a5v")
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_6thu0")
