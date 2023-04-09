@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends EnemyScript
 
 
 const VISUALS_SELECTION: Array[PackedScene] = [

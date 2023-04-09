@@ -7,3 +7,4 @@
 script = ExtResource("2_6drwq")
 type = 1
 enemy_scene = ExtResource("1_di7wn")
+weight = 3.0

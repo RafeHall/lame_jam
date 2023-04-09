@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgyrmqh46q3xy"]
+[gd_scene load_steps=4 format=3 uid="uid://dgyrmqh46q3xy"]
 
+[ext_resource type="Script" path="res://overworld/enemies/enemy_script.gd" id="1_1cbih"]
 [ext_resource type="PackedScene" uid="uid://dxcdrfv27cttp" path="res://sprites/enemy/bat/bat.tscn" id="1_qyq8g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rfb81"]
 size = Vector2(8, 56)
 
 [node name="Bat" type="Node2D"]
+script = ExtResource("1_1cbih")
 
 [node name="Visuals" parent="." instance=ExtResource("1_qyq8g")]
 

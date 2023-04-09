@@ -15,6 +15,7 @@ tile_script = ExtResource("2_45x0y")
 tile_scene = ExtResource("2_12meg")
 visuals_rotate = false
 valid_rotations = 1
+description = "DEFAULT DESCRIPTION. CHANGE THIS!!!"
 icon = SubResource("AtlasTexture_vk502")
 buyable = false
 cost = 250
