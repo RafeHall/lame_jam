@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="Component" load_steps=6 format=3 uid="uid://7yiweiqyfub1"]
+
+[ext_resource type="Texture2D" uid="uid://65m6injbfmoo" path="res://components/wires/wires.png" id="1_kqft4"]
+[ext_resource type="Script" path="res://components/component.gd" id="2_gg18b"]
+[ext_resource type="PackedScene" uid="uid://bxf7mudaj0ey1" path="res://components/wires/right_angle_wire.tscn" id="3_l3ltj"]
+[ext_resource type="Script" path="res://components/wires/wire.gd" id="4_3t3id"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2y7p"]
+atlas = ExtResource("1_kqft4")
+region = Rect2(0, 48, 48, 48)
+
+[resource]
+script = ExtResource("2_gg18b")
+tile_script = ExtResource("4_3t3id")
+tile_scene = ExtResource("3_l3ltj")
+visuals_rotate = true
+valid_rotations = 15
+icon = SubResource("AtlasTexture_f2y7p")
+buyable = true
+cost = 30
+north_port = 3
+east_port = 3
+south_port = 0
+west_port = 0

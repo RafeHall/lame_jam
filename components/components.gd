@@ -6,6 +6,7 @@ extends Resource
 @export var capacitor: Component = preload("res://components/capacitor/capacitor.tres");
 @export var turret: Component = preload("res://components/turret/turret.tres");
 @export var straight_wire: Component = preload("res://components/wires/straight_wire.tres");
+@export var right_angle_wire: Component = preload("res://components/wires/right_angle_wire.tres");
 
 
 func get_as_array() -> Array[Component]:
@@ -14,4 +15,5 @@ func get_as_array() -> Array[Component]:
 		capacitor,
 		turret,
 		straight_wire,
+		right_angle_wire,
 	];

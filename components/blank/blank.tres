@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Component" load_steps=2 format=3 uid="uid://cvf44xxjmeytx"]
+
+[ext_resource type="Script" path="res://components/component.gd" id="1_n2qmt"]
+
+[resource]
+script = ExtResource("1_n2qmt")
+visuals_rotate = false
+valid_rotations = 1
+buyable = true
+cost = 250
+north_port = 0
+east_port = 0
+south_port = 0
+west_port = 0
