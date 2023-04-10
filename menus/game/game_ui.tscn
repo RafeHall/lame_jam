@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
 [ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="10_voh5i"]
 [ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
-[ext_resource type="Material" uid="uid://ctc64k8ix2chv" path="res://util/bar_mat.tres" id="13_dpcyh"]
+[ext_resource type="Material" path="res://util/bar_mat.tres" id="13_dpcyh"]
 [ext_resource type="Texture2D" uid="uid://bfvfu4celsdsg" path="res://sprites/player/ui2/startwavebtn.png" id="16_vo776"]
 [ext_resource type="Texture2D" uid="uid://did8jns5f5e36" path="res://sprites/player/ui2/startwavebtnpressed.png" id="17_lbr16"]
 [ext_resource type="Material" uid="uid://ddsqf0liuwd3c" path="res://util/basic_2d_additive.tres" id="18_rwwak"]
@@ -22,6 +22,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_80ws5"]
 shader = ExtResource("1_bukbr")
+shader_parameter/scale = 0.5
 shader_parameter/flashtime = 10.0
 shader_parameter/flashpower = 0.1
 shader_parameter/flashlines = 10.0
@@ -29,7 +30,7 @@ shader_parameter/flashchange = Vector2(1.6, 2)
 shader_parameter/flashlinescount = 2000.0
 shader_parameter/aberrationAmount = -0.002
 shader_parameter/aberrationDistancePower = Vector2(1, 1)
-shader_parameter/color_mult = Vector3(2, 1, 1)
+shader_parameter/color_mult = Vector3(1.25, 1, 1)
 shader_parameter/SAT = 1.0
 shader_parameter/HUE = 0.0
 shader_parameter/BRI = 1.0
@@ -102,33 +103,6 @@ func _pressed() -> void:
 	$\"../AnimationPlayer\".play(\"Hide\");
 "
 
-[sub_resource type="Animation" id="Animation_gb3av"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(50, 9)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Btnlight:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_8oeke"]
 resource_name = "Hide"
 tracks/0/type = "value"
@@ -158,6 +132,33 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(0.470588, 0.254902, 0.254902, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gb3av"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(50, 9)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Btnlight:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_l3y6n"]

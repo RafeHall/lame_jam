@@ -2,6 +2,8 @@ shader_type canvas_item;
 render_mode unshaded,blend_mix;
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
+uniform float scale = 1.0;
+
 uniform float flashtime = 20;
 uniform float flashpower = 0.25;
 uniform float flashlines = 0.25;
@@ -96,6 +98,8 @@ void fragment() {
 	float lum = (col.r * 0.299) + (col.g * 0.587) + (col.b * 0.114);
 	col *= lum;
 	col *= color_mult;
+	
+	col = mix(tex.rgb, col, scale);
 	
 	COLOR = vec4(col, tex.a);
 }
