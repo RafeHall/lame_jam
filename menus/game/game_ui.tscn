@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://menus/game/wave_progress.gd" id="8_4wnwc"]
 [ext_resource type="Shader" path="res://shaders/ntscize/ntscize.gdshader" id="10_voh5i"]
 [ext_resource type="Script" path="res://menus/game/help_label.gd" id="11_w7gw5"]
-[ext_resource type="Material" path="res://util/bar_mat.tres" id="13_dpcyh"]
+[ext_resource type="Material" uid="uid://ctc64k8ix2chv" path="res://util/bar_mat.tres" id="13_dpcyh"]
 [ext_resource type="Texture2D" uid="uid://bfvfu4celsdsg" path="res://sprites/player/ui2/startwavebtn.png" id="16_vo776"]
 [ext_resource type="Texture2D" uid="uid://did8jns5f5e36" path="res://sprites/player/ui2/startwavebtnpressed.png" id="17_lbr16"]
 [ext_resource type="Material" uid="uid://ddsqf0liuwd3c" path="res://util/basic_2d_additive.tres" id="18_rwwak"]
