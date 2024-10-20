@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cif4x40gj3q3r"]
+[gd_scene load_steps=2 format=3 uid="uid://cif4x40gj3q3r"]
 
 [ext_resource type="Script" path="res://menus/shop/shop_item.gd" id="1_67x41"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_psdnt"]
-size = Vector2(64, 64)
 
 [node name="ShopItem" type="VBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
@@ -11,12 +8,21 @@ size_flags_horizontal = 3
 mouse_filter = 0
 script = ExtResource("1_67x41")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_psdnt")
-expand_mode = 1
-stretch_mode = 5
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(32, 32)
+render_target_clear_mode = 2
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+zoom = Vector2(0.5, 0.5)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

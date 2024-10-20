@@ -12,16 +12,6 @@ enum Port {
 	NONE,
 	INPUT,
 	OUTPUT,
-	IN_OUT,
-}
-
-enum Power {
-	NONE = -1,
-	ZERO = 0,
-	LOW = 1,
-	MEDIUM = 2,
-	HIGH = 3,
-	FULL = 4,
 }
 
 @export var tile_script: Script = null;
@@ -32,6 +22,7 @@ enum Power {
 
 @export_group("Shop")
 @export var icon: Texture2D = null;
+@export var h_flipped: bool = false;
 @export var buyable: bool = true;
 @export var cost: int = 250;
 

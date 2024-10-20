@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdl7is2cmly5j"]
+[gd_scene load_steps=3 format=3 uid="uid://cdl7is2cmly5j"]
 
 [ext_resource type="Texture2D" uid="uid://ij70h3dhhe77" path="res://sprites/player/ui3/capacitor1.png" id="1_tb4om"]
+[ext_resource type="Texture2D" uid="uid://cemlws8qnyoos" path="res://sprites/player/ui3/arrow_line.png" id="1_wa36i"]
 
 [node name="Capacitor" type="Node2D"]
+
+[node name="ArrowLine" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("1_wa36i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tb4om")
